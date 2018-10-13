@@ -1,3 +1,10 @@
+
+/*                     SqQueue's open  source 
+*   This file should be use for  the SqQueue's base operation
+*   Copyright (C)  2018   DQY 
+*   email: 2650822367@qq.com 
+*   Please follow  the  law of  China.
+*/
 #include<iostream>
 using namespace std;
 #define Status int
