@@ -1,0 +1,176 @@
+
+/*                     LinkQueue's open  source 
+*   This file should be use for  the LinkQueue's base operation
+*   Copyright (C)  2018   DQY 
+*   email: 2650822367@qq.com 
+*   Please follow  the  law of  China.
+*/
+
+#include<iostream>
+using namespace std;
+#define Status int
+#define ElemType_of_LinkQueue int
+#define OK 1
+#define ERROR 0 
+      /*  链队不用考虑队列为满的情况  */
+    /*The LinkQueue is not considered full.*/
+typedef struct LinkQueue
+{
+	ElemType_of_LinkQueue data;
+	LinkQueue    *rear;//Define the LinkQueue's front pointer
+}LinkQueue,*LNodeQueue;//Define the LinkQueue type
+Status Init_LinkQueue(LNodeQueue& );//Init LinkQuese
+Status Enter_LinkQueue(LNodeQueue&, ElemType_of_LinkQueue);
+Status Delete_LinkQueue(LNodeQueue&);
+ElemType_of_LinkQueue Delete_LinkQueue_x(LNodeQueue&);
+Status Clear_LinkQueue(LNodeQueue&);//Clear LinkQuese
+Status EmptyLinkQueue(LNodeQueue);
+int LinkQuese_length(LNodeQueue);//Return  the length of LinkQuese
+ElemType_of_LinkQueue GetHead(LNodeQueue);//Return  the front pointer's elem 
+void TraverseLinkQueue(LNodeQueue);//Traverse LinkQuese
+
+
+Status Init_LinkQueue(LNodeQueue& LQ)
+{
+	LQ = new LinkQueue;
+	if (LQ)
+	{
+		LQ->data = 0;//The LinkQuese's initialize Status
+		LQ->rear = NULL;
+		return OK;
+	}
+	else
+		return ERROR;
+}
+Status Enter_LinkQueue(LNodeQueue& LQ, ElemType_of_LinkQueue x)
+{
+	if (LQ)
+	{
+		LNodeQueue p;
+		p = new LinkQueue;
+		if (p)
+		{
+			p->data = x;
+			LQ->rear = p;
+			return OK;
+		}
+		else
+			return ERROR;
+	}
+	else
+	{
+		cout << "Pushing the LinkQueue failed" << endl;
+		return ERROR;
+	}	
+}
+
+Status Delete_LinkQueue(LNodeQueue& LQ)
+{
+	if (LQ)
+	{
+		LQ = LQ->rear;//Pop the LinkQuese
+		return OK;
+	}
+	else
+		return ERROR;
+}
+
+ElemType_of_LinkQueue Delete_LinkQueue_x(LNodeQueue& LQ)
+{
+	ElemType_of_LinkQueue x;
+	if (LQ)
+	{
+		x = LQ->data;
+		LQ = LQ->rear;
+		return x;
+	}
+	else
+	{
+		cout << "error" << endl;
+		exit(0);
+	}
+}
+
+Status Clear_LinkQueue(LNodeQueue& LQ)
+{
+	LNodeQueue p = LQ->rear;
+	if (p)
+	{
+		cout << "Clear the queue of LQ begin" << endl;
+		while (p)
+		{
+			LNodeQueue s;
+			s = p;
+			p = p->rear;
+			delete s;
+		}
+		cout << "Clear the queue  aleady completed" << endl;
+		return  OK;
+	}
+	else
+	{
+		cout << "The queue oog LQ is cleary" << endl;
+		return ERROR;
+	}
+}
+Status EmptyLinkQueue(LNodeQueue LQ)
+{
+	if (LQ->rear == NULL)
+	{
+		cout << "The queue's length is zero" << endl;
+		return ERROR;
+	}
+	else
+	{
+		cout << "The queue's length isn't zero" << endl;
+		return OK;
+	}
+}
+int LinkQuese_length(LNodeQueue LQ)
+{
+	int count = 0;
+	LNodeQueue p = LQ->rear;
+	if (p)
+	{
+		while (p)
+		{
+			count++;
+			p = p->rear;
+		}
+	}
+	return count;
+}
+ElemType_of_LinkQueue GetHead(LNodeQueue LQ)
+{
+	LNodeQueue p = LQ;
+	if (p)
+	{
+		ElemType_of_LinkQueue x;
+		x = p->data;
+		return x;
+	}
+	else
+	{
+		cout << "The queue is empty " << endl;
+		exit(0);
+	}
+}
+void TraverseLinkQueue(LNodeQueue LQ)
+{
+	LNodeQueue p = LQ;
+	if (p)
+	{
+		while (p)
+		{
+
+			cout << p->data << endl;
+			p = p->rear;
+		}
+	}
+}
+void main()
+{
+
+
+	cin.get();
+}
