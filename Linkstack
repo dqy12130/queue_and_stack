@@ -1,0 +1,123 @@
+
+
+/*                     Linkstack's open  source 
+*   This file should be use for  the Linkstack's base operation
+*   Copyright (C)  2018   DQY 
+*   email: 2650822367@qq.com 
+*   Please follow  the  law of  China.
+*/
+
+#include<iostream>
+#define   Status  int
+#define OK 1
+#define ERROR 0
+#define ElemType_Stack int
+using namespace std;
+typedef struct Linktack
+{
+	ElemType_Stack data;
+    Linktack *next;
+}Linktack,*LNodeStack;
+
+Status Init_Link_Stack(LNodeStack&);
+Status  Push(LNodeStack&, ElemType_Stack);
+Status  Pop(LNodeStack &, ElemType_Stack);
+Status  Pop(LNodeStack & );//出栈
+Status  GetTop(LNodeStack , ElemType_Stack);
+int LinkStack_length(LNodeStack);
+void TraverLinkStack(LNodeStack);
+Status Init_Link_Stack(LNodeStack& Stack)
+{
+	Stack = NULL;
+	return  OK;
+}
+Status  Push(LNodeStack &top, ElemType_Stack x)
+{
+	LNodeStack p;
+	p = new Linktack;
+	if (p!=NULL)
+	{
+		p->data = x;
+		p->next = top;
+		top = p;
+		return OK;
+	}
+	else 
+		return ERROR;
+}
+Status  Pop(LNodeStack & top, ElemType_Stack x)
+{
+	LNodeStack p;
+	if (top == NULL)
+		return ERROR;
+	else
+	{
+		x = top->data;
+		p = top;
+		top = top->next;
+		delete p;
+		return OK;
+	}
+}
+
+Status  Pop(LNodeStack &top)
+{
+	LNodeStack p;
+	if (top == NULL)
+		return ERROR;
+	else
+	{
+		p = top;
+		top = top->next;
+		delete p;
+		return OK;
+	}
+}
+
+Status  GetTop(LNodeStack top, ElemType_Stack x)
+{
+	if (top == NULL)
+		return ERROR;
+	else
+	{
+		x = top->data;
+		return OK;
+	}
+}
+int LinkStack_length(LNodeStack top)
+{
+	LNodeStack p = top;
+	int count = 0;//counter
+	if (p == NULL)
+		;
+	else
+	{
+		while (p)
+		{
+			count++;
+			p = p->next;	
+		}
+	}
+	return count;
+}
+void TraverLinkStack(LNodeStack top) 
+{
+	while (top)
+	{
+		cout << top->data << endl;
+		top = top->next;
+	}
+}
+void test_of_LinkStack()
+{
+	int x=0;
+	LNodeStack p;
+	Init_Link_Stack(p);
+	Push(p, 1);
+	Push(p, 2);
+	TraverLinkStack(p);
+	LinkStack_length(p);
+	Pop(p,x);
+	TraverLinkStack(p);
+	system("pause");
+}
