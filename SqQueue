@@ -1,0 +1,146 @@
+#include<iostream>
+using namespace std;
+#define Status int
+#define OK 1
+#define ERROR 0
+#define MaxSqQueue_SIZE  100//Define the SqQueue's max size.
+/*The most important two points of SqQueue operation are the condition of queue null and full */
+#define     ElemType_of_SqQueue int
+
+typedef struct SqQueue// unidirectional queue
+{
+	
+	ElemType_of_SqQueue *base;
+	int front, rear;//operation pointer 
+}SqQueue,*SqLinkQueue;
+Status InitSqQueue(SqLinkQueue&);
+Status DestroySqQueue(SqLinkQueue&);
+Status ClearSqQueue(SqLinkQueue&);
+Status EmptySqQueue(SqLinkQueue);
+int SqQuese_length(SqLinkQueue);
+ElemType_of_SqQueue GetHead(SqLinkQueue);//return the elem of the SqQueue 
+Status EnterSqQueue(SqLinkQueue);
+Status DeleteSqQueue(SqLinkQueue&, ElemType_of_SqQueue);
+void TraverseSqQueue(SqLinkQueue);//Traverse of the SqQuese
+
+Status InitSqQueue(SqLinkQueue& Qhead)
+{
+	Qhead = new   SqQueue;
+	if (Qhead == NULL)
+		return ERROR;
+	else
+	{
+		{
+			Qhead->base = new ElemType_of_SqQueue[MaxSqQueue_SIZE];
+			if (Qhead->base == NULL)
+			{
+				return ERROR;
+			}
+			else
+			{
+				Qhead->front = Qhead->rear = 0;//Init the quque
+				return OK;
+			}
+		}	
+	}
+}
+
+
+Status DestroySqQueue(SqLinkQueue&Qhead)
+{
+	delete []Qhead->base;//delete queue
+	return OK;
+}
+
+Status ClearSqQueue(SqLinkQueue&Qhead)
+{
+	Qhead->front = Qhead->rear;
+	return OK;
+}
+Status EmptySqQueue(SqLinkQueue Qhead)
+{
+	if (Qhead->front == Qhead->rear)
+	{
+		cout << "the Squeue is empty " << endl;
+		return 1;
+	}
+	else
+	{
+		cout << " the Sqqueue isn't empty" << endl;
+		return 0;
+	}
+}
+int SqQuese_length(SqLinkQueue Qhead)
+{
+	int i = EmptySqQueue(Qhead);
+	if (i)
+	{
+		cout << "The Squeue is empty and the length of queue is zero" << endl;
+	}
+	else
+	{
+		cout << "The Squeue isn't empty and the length of queue is :" \
+    <<(Qhead->rear - Qhead->front+MaxSqQueue_SIZE)\
+		   	%MaxSqQueue_SIZE )<<endl;
+		return (Qhead->rear - Qhead->front+MaxSqQueue_SIZE)\
+			%MaxSqQueue_SIZE;//return the length of the queue
+	}
+}
+ElemType_of_SqQueue GetHead(SqLinkQueue Qhead)
+{
+	ElemType_of_SqQueue x;
+	if (Qhead == NULL)
+		return x=0;
+	else 
+	x = Qhead->front;
+	return x;
+}
+Status EnterSqQueue(SqLinkQueue&Qhead, ElemType_of_SqQueue x)
+{
+	if (Qhead->front == (Qhead->rear+1)%MaxSqQueue_SIZE)
+	{
+		cout << "The queue was fully " << endl;
+		return ERROR;
+	}
+	else
+	{
+		Qhead->base[Qhead->rear] = x;// Pushing  the 'x' on the SqQueue
+		Qhead->rear = (Qhead->rear + 1) % MaxSqQueue_SIZE;
+		return OK;
+	}
+}
+Status DeleteSqQueue(SqLinkQueue& Qhead)
+{
+	if (Qhead->front == Qhead->rear)
+	{
+		cout << "The queue is empty " << endl;
+		return ERROR;
+	}
+	else
+	{
+		Qhead->front = (Qhead->front + 1) % MaxSqQueue_SIZE;//Pop the SqQueue 
+		return OK;
+	}
+}
+void TraverseSqQueue(SqLinkQueue Qhead)
+{
+	if (Qhead)
+	{
+		while (Qhead->front != Qhead->rear)
+		{
+			cout << Qhead->front << endl;//Traverse　the SqQueue.
+			Qhead->front = (Qhead->front + 1) % MaxSqQueue_SIZE;
+		}
+	}
+}
+void main()
+{
+	ElemType_of_SqQueue x = 99;
+	int m = 44;
+	SqLinkQueue p;
+	InitSqQueue(p);
+	EnterSqQueue(p, x);
+//	EnterSqQueue(p, m);
+	TraverseSqQueue(p);
+	system("pause");
+}
