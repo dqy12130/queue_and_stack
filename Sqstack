@@ -1,29 +1,33 @@
 
 
+/*                     Sqstack's open  source 
+*   This file should be use for  the Sqstack's base operation
+*   Copyright (C)  2018   DQY 
+*   email: 2650822367@qq.com 
+*   Please follow  the  law of  China.
+*/
 #include<iostream>
-#include<stdlib.h>
-using namespace std;
 #define STACK_SIZE 100
 #define ERROR 0;
 #define OK 1;
 typedef int SElemType;
 typedef int Status;
 
-typedef struct stack//顺序栈
+typedef struct stack//Sqstack
 {
 	SElemType *base;
 	SElemType *top;
 	int stacksize;
 }SqStack,*SqStackList;
-Status InitStack(SqStack &);//构建一个空栈
-Status DestroyStack(SqStack&);//销毁栈
-Status ClearStack(SqStack&);//清空栈
-void StackEmpty(SqStack);//判栈空
-int  Stacklength(SqStack);//求栈的长度
-SElemType Gettop(SqStack);//求栈顶
-void Push(SqStack &, SElemType);//压栈
-void Pop(SqStack &, SElemType);//弹栈并返回值
-void StackTraverse(SqStack);//遍历栈
+Status InitStack(SqStack &);
+Status DestroyStack(SqStack&);
+Status ClearStack(SqStack&);
+void StackEmpty(SqStack);
+int  Stacklength(SqStack);
+SElemType Gettop(SqStack);
+void Push(SqStack &, SElemType);
+void Pop(SqStack &, SElemType);
+void StackTraverse(SqStack);
 
 
 Status InitStack(SqStack &s)
@@ -56,15 +60,15 @@ Status ClearStack(SqStack&s)
 {
 	if (s.base == s.top)
 	{
-		cout << "栈为空，不需清空" << endl;
+		cout << "Stack is empty, needn't clear it" << endl;
 		return ERROR;
 	}
 	else
 	{
 		while (s.base != s.top)
 		{
-			s.top--;//栈顶下移
-			s.stacksize++;//容量增加
+			s.top--;// top wodn
+			s.stacksize++;
 		}
 		return OK;
 	}
@@ -73,10 +77,10 @@ void StackEmpty(SqStack s)
 {
 	if (s.base == s.top)
 	{
-		cout << "栈为空" << endl;
+		cout << "SqStack isn't empty" << endl;
 	}
 	else
-		cout << "栈非空" << endl;
+		cout << "SqStack is empty" << endl;
 }
 int Stacklength(SqStack s)
 {
@@ -95,45 +99,45 @@ int Stacklength(SqStack s)
 }
 SElemType Gettop(SqStack s)
 {
-	return *s.top;//返回栈顶元素
+	return *s.top;//Return the top pointer's elem
 }
 void Push(SqStack &s, SElemType x)
 {
-	if (s.top-s.base==s.stacksize)//栈满判断条件 
+	if (s.top-s.base==s.stacksize)//The  condition of Sqstack full
 	{
 	}
 	else
 	{
-		*s.top = x;//压栈
+		*s.top = x;//Puhsing the elem on Sqstack
 		s.top++;
-		//上面两步合成*s.top++=x;
+		//Two steps above:  *s.top++=x;
 	}
 }
 void Pop(SqStack &s, SElemType m)
 {
 	if (s.top == s.base)
 	{
-		cout << "栈空" << endl;
+		cout << "Sqtack is empty" << endl;
 	}
 	else
 	{
 		m = *s.top;
 		s.top--;
-		//上面两步合成m = *--s.top;
+		//Two steps above:  *--s.top;
 	}
 }
 void StackTraverse(SqStack s)
 {
 	if (s.base == s.top)
 	{
-		cout << "栈为空" << endl;
+		cout << "The Sqstack isn't empty" << endl;
 	}
 	else
 	{
 		while (s.top != s.base)
 		{
 			cout << *s.top << "  ";
-			s.top--;//向下移动
+			s.top--;//The top pointer dowm 
 		}
 	}
 }
